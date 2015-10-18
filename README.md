@@ -14,7 +14,7 @@ Build instructions
 
 Just execute make in rda_wlan directory.
 
- make KERNEL_DIR=/path/to/kernl/build
+  make KERNEL_DIR=/path/to/kernl/build
 
 You might need to adjust the CROSS_COMPILE your linux distor's corss compiler.
 
