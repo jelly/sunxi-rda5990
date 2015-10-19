@@ -24,8 +24,6 @@
 #include <asm/termbits.h>
 #include <linux/serial.h>
 
-//#include <linux/wakelock.h>
-
 #define RDA5890_USE_CRYSTAL // if use share crystal should close this
 #define RDA5990_USE_DCDC
 
@@ -57,7 +55,6 @@ static struct mutex i2c_rw_lock;
 
 
 static unsigned short wlan_version = 0;
-//static struct wake_lock rda_5990_wake_lock;
 static struct delayed_work   rda_5990_sleep_worker;
 static struct i2c_client * rda_wifi_core_client = NULL;
 static struct i2c_client * rda_wifi_rf_client = NULL;
@@ -1686,14 +1683,6 @@ static const struct file_operations rda_5990_operations = {
 void rda_5990_sleep_worker_task(struct work_struct *work)
 {
 	printk("---rda_5990_sleep_worker_task end");
-	//wake_unlock(&rda_5990_wake_lock);
-}
-
-void rda_5990_set_wake_lock(void)
-{
-	//wake_lock(&rda_5990_wake_lock);
-	//cancel_delayed_work(&rda_5990_sleep_worker);
-	//schedule_delayed_work(&rda_5990_sleep_worker, 6*HZ);
 }
 
 int rda_5990_power_ctrl_init(void)
@@ -1763,7 +1752,6 @@ int rda_5990_power_ctrl_init(void)
 	}
 
 	INIT_DELAYED_WORK(&rda_5990_sleep_worker, rda_5990_sleep_worker_task);
-	//wake_lock_init(&rda_5990_wake_lock, WAKE_LOCK_SUSPEND, "RDA_sleep_worker_wake_lock");
 
     mutex_init(&i2c_rw_lock);    
 	printk("rda_5990_power_ctrl_init end\n");
@@ -1780,9 +1768,6 @@ void rda_5990_power_ctrl_exit(void)
 	unregister_chrdev(rda_5990_major, "rdabt_power_ctrl");
 	if(rda_5990_class)
 		class_destroy(rda_5990_class);       
-
-	//cancel_delayed_work_sync(&rda_5990_sleep_worker);
-	//wake_lock_destroy(&rda_5990_wake_lock);
 }
 
 unsigned char rda_5990_wifi_in_test_mode(void)
@@ -1884,7 +1869,6 @@ EXPORT_SYMBOL(rda_wlan_version);
 EXPORT_SYMBOL(rda_wifi_init_uart);
 EXPORT_SYMBOL(rda_5990_wifi_in_test_mode);
 
-//EXPORT_SYMBOL(rda_5990_set_wake_lock);
 EXPORT_SYMBOL(rda_wifi_power_off);
 EXPORT_SYMBOL(rda_wifi_power_on);
 EXPORT_SYMBOL(rda_fm_power_on);

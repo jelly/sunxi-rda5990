@@ -48,9 +48,6 @@ int rda5890_wid_request(struct rda5890_private *priv,
 	memcpy(data_buf + 2, wid_req, wid_req_len);
 
 	init_completion(&priv->wid_done);
-#ifdef WIFI_UNLOCK_SYSTEM
-    //rda5990_wakeLock();
-#endif
 	ret = rda5890_host_to_card(priv, data_buf, data_len, WID_REQUEST_PACKET);
 	if (ret) {
 		RDA5890_ERRP("host_to_card send failed, ret = %d\n", ret);
@@ -74,9 +71,6 @@ out:
     atomic_set(&card->wid_complete_flag, 0);
 	RDA5890_DBGLAP(RDA5890_DA_WID, RDA5890_DL_DEBUG,
 		"%s >>> wid: %x %x \n", __func__, wid_req[4],wid_req[5]);
-#ifdef WIFI_UNLOCK_SYSTEM
-    //rda5990_wakeUnlock();
-#endif
 	return ret;
 }
 
@@ -270,10 +264,6 @@ void rda5890_wid_status(struct rda5890_private *priv,
 	RDA5890_DBGLAP(RDA5890_DA_WID, RDA5890_DL_DEBUG,
 		"%s >>>\n", __func__);
 
-#ifdef WIFI_UNLOCK_SYSTEM
-    //rda5990_wakeLock();
-#endif
-
 	mac_status = wid_status[7];
 	if (mac_status == MAC_CONNECTED) {
 		RDA5890_DBGLAP(RDA5890_DA_WID, RDA5890_DL_CRIT,
@@ -341,9 +331,6 @@ void rda5890_wid_status(struct rda5890_private *priv,
 	RDA5890_DBGLAP(RDA5890_DA_WID, RDA5890_DL_DEBUG,
 		"%s <<<\n", __func__);
     
-#ifdef WIFI_UNLOCK_SYSTEM
-    //rda5990_wakeUnlock();
-#endif    
 }
 
 void rda5890_card_to_host(struct rda5890_private *priv, 

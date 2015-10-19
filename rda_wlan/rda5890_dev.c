@@ -29,14 +29,6 @@
 
 int rda5890_sleep_flags = RDA_SLEEP_ENABLE | RDA_SLEEP_PREASSO;
 
-/*
-#ifdef WIFI_UNLOCK_SYSTEM
-atomic_t   wake_lock_counter;
-struct wake_lock sleep_worker_wake_lock;
-#endif
-*/
-
-
 int rda5890_init_pm(struct rda5890_private *priv)
 {
 #ifdef WIFI_POWER_MANAGER
@@ -594,44 +586,3 @@ void rda5890_shedule_timeout(int msecs)
             break;
     }
 }
-
-/*
-#ifdef WIFI_UNLOCK_SYSTEM
-
-void rda5990_wakeLock(void)
-{
-    if(atomic_read(&wake_lock_counter) == 0)
-        wake_lock(&sleep_worker_wake_lock);
-    atomic_inc(&wake_lock_counter);
-}
-
-void rda5990_wakeUnlock(void)
-{
-
-    if(atomic_read(&wake_lock_counter) == 1)
-    {
-        atomic_set(&wake_lock_counter, 0);
-        wake_unlock(&sleep_worker_wake_lock);        
-    }
-    else if(atomic_read(&wake_lock_counter) > 0)
-    {
-        atomic_dec(&wake_lock_counter);
-    }
-    
-}
-
-void rda5990_wakeLock_destroy(void)
-{
-    if(atomic_read(&wake_lock_counter) > 0)
-    {
-        atomic_set(&wake_lock_counter, 0);
-        wake_unlock(&sleep_worker_wake_lock);  
-    }
-    
-    wake_lock_destroy(&sleep_worker_wake_lock);
-    
-}
-
-#endif
-*/
-

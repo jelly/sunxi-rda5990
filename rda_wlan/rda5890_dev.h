@@ -10,7 +10,6 @@
 #include <linux/ethtool.h>
 #include <linux/delay.h>
 #include <linux/debugfs.h>
-//#include <linux/wakelock.h>
 #include "rda5890_defs.h"
 //#include "hif_sdio.h"
 
@@ -238,15 +237,6 @@ extern int rda5890_sleep_flags;
 extern unsigned char rda_5990_wifi_in_test_mode(void);
 #endif
 
-#ifdef WIFI_UNLOCK_SYSTEM
-/*
-extern atomic_t     wake_lock_counter;
-extern struct wake_lock sleep_worker_wake_lock;
-extern void rda5990_wakeLock(void);
-extern void rda5990_wakeUnlock(void);
-extern void rda5990_wakeLock_destroy(void);
-*/
-#endif
 
 struct rda5890_private *rda5890_add_card(void *card);
 void rda5890_remove_card(struct rda5890_private *priv);

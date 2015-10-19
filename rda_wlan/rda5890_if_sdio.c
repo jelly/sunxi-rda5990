@@ -177,11 +177,6 @@ void if_sdio_sleep_worker(struct work_struct *work)
 out:
 
     atomic_set(&card->sleep_work_is_active, 0);
-    /*
-#ifdef WIFI_UNLOCK_SYSTEM
-    rda5990_wakeUnlock();
-#endif
-*/
 	return;
 }
 
@@ -236,11 +231,6 @@ static void if_sdio_host_to_card_worker(struct work_struct *work)
         if(atomic_read(&card->sleep_work_is_active))
         {
             cancel_delayed_work(&card->sleep_work);
-	    /*
-#ifdef WIFI_UNLOCK_SYSTEM    
-            rda5990_wakeUnlock();
-#endif 
-*/
             atomic_set(&card->sleep_work_is_active, 0);
         }
     }
@@ -362,10 +352,6 @@ out:
     
 	if(is_sdio_init_complete()) //init complete should start sleep_work
     {
-#ifdef WIFI_UNLOCK_SYSTEM    
-        //rda5990_wakeLock();
-#endif   
-
 #ifdef WIFI_POWER_MANAGER
 #ifdef WIFI_TEST_MODE
         if(rda_5990_wifi_in_test_mode())
@@ -532,13 +518,6 @@ static int if_sdio_probe(struct sdio_func *func,
     atomic_set(&card->sleep_work_is_active, 0);
     INIT_DELAYED_WORK(&card->sleep_work, if_sdio_sleep_worker); 
 #endif
-
-    /*
-#ifdef WIFI_UNLOCK_SYSTEM 
-    atomic_set(&wake_lock_counter, 0);
-    wake_lock_init(&sleep_worker_wake_lock, WAKE_LOCK_SUSPEND, "RDA_sleep_worker_wake_lock");
-#endif
-*/
 
     sdio_claim_host(func);
     ret = sdio_enable_func(func);
@@ -728,10 +707,6 @@ static void if_sdio_remove(struct sdio_func *func)
     } 
     
     kfree(card);
-
-#ifdef WIFI_UNLOCK_SYSTEM 
-    //rda5990_wakeLock_destroy();
-#endif  
 
     printk(KERN_INFO "RDA5890: SDIO card removed\n");
 

@@ -2250,10 +2250,6 @@ void rda5890_scan_worker(struct work_struct *work)
 
 	priv->scan_running = 1;
     
-#ifdef WIFI_UNLOCK_SYSTEM
-    //rda5990_wakeLock();
-#endif
-
 #ifdef GET_SCAN_FROM_NETWORK_INFO
 	ret = rda5890_start_scan_enable_network_info(priv);
 #else
@@ -2349,10 +2345,6 @@ out:
     wireless_send_event(priv->dev, SIOCGIWSCAN, &wrqu, NULL);
 
 	RDA5890_DBGLAP(RDA5890_DA_WEXT, RDA5890_DL_TRACE, "%s <<<\n", __func__);
-
-#ifdef WIFI_UNLOCK_SYSTEM
-    //rda5990_wakeUnlock();
-#endif
 }
 
 /**
