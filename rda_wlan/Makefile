@@ -2,8 +2,6 @@ KERNEL_DIR ?= /mnt/msata/linux-hans/
 
 obj-m := rda5890.o
 rda5890-objs := \
-	rda_5990_power_ctrl.o \
-	rda_5990_power_ctrl_by_gpio.o \
 	rda5890_if_sdio.o \
 	rda5890_dev.o \
 	rda5890_txrx.o \

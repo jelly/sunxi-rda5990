@@ -767,7 +767,7 @@ static int __init if_sdio_init_module(void)
 	msleep(1000);
 
 	printk("@@@@@@@@@@@@@@ mmc_rescan_slot\n");
-	mmc_rescan_slot(0);
+	//mmc_rescan_slot(0);
 	msleep(1000);
 
 	rda5890_debugfs_init();
