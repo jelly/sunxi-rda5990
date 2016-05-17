@@ -1,7 +1,7 @@
 RDA 5990
 -------
 
-Source taken from [here](https://github.com/linuxium/3188-SRC-ORIG/tree/master/kernel/drivers/net/wireless/rda5990) and there is also another dirver[here](https://github.com/aloksinha2001/Linux3188/tree/master/drivers/net/wireless/rda5990).
+Source taken from [here](https://github.com/linuxium/3188-SRC-ORIG/tree/master/kernel/drivers/net/wireless/rda5990) and there is also another driver [here](https://github.com/aloksinha2001/Linux3188/tree/master/drivers/net/wireless/rda5990).
 
 Plan is to upstream this driver to the mainline kernel:
 
