@@ -126,7 +126,10 @@ int rda5890_data_tx(struct rda5890_private *priv,
 	priv->stats.tx_packets++;
 	priv->stats.tx_bytes += skb->len;
 
-	dev->trans_start = jiffies;
+	// Port deprecated dev->transstart https://patchwork.kernel.org/patch/9005101/
+	struct netdev_queue *txq = netdev_get_tx_queue(dev, 0);
+	if (txq->trans_start != jiffies)
+		txq->trans_start = jiffies;
 
  free:
 	/* free right away, since we do copy */
