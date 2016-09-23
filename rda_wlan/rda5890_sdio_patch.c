@@ -1088,7 +1088,6 @@ extern void export_wifi_eirq_enable(void);
 int rda5890_sdio_init(struct rda5890_private *priv)
 {
     int ret = 0;
-    unsigned long para = 0;
 
     sdio_init_complete = 0;
     sdio_patch_complete = 0;
