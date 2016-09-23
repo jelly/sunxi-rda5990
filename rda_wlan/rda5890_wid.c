@@ -802,7 +802,6 @@ int rda5890_check_wid_response_unknown_len(
 		char *payload_len, char **ptr_payload)
 {
 	unsigned short rsp_len;
-	unsigned short rsp_wid;
 	unsigned char msg_len;
 
 	if (wid_rsp[0] != 'R') {
@@ -848,7 +847,6 @@ int rda5890_check_wid_response_unknown_len(
 	*ptr_payload = wid_rsp + 7;
 
 	return 0;
-err:
 
     RDA5890_ERRP("wid is %x wid_msg %d \n", wid_rsp[4] | (wid_rsp[5] << 8), wid_rsp[1]);
     return -EINVAL;
@@ -1027,7 +1025,7 @@ int rda5890_start_join(struct rda5890_private *priv)
 	unsigned short wid;
 	char wid_msg_id = priv->wid_msg_id++;
     unsigned short i = 0;
-    unsigned char * wep_key = 0, key_str_len = 0;
+    unsigned char key_str_len = 0;
     unsigned char key_str[26 + 1] , * key, *pWid_req;
     
     RDA5890_DBGLAP(RDA5890_DA_WID, RDA5890_DL_DEBUG,
@@ -1568,9 +1566,9 @@ int rda5890_get_ssid(struct rda5890_private *priv,
     
     RDA5890_DBGLAP(RDA5890_DA_WID, RDA5890_DL_TRACE,
 	"Get SSID Done len:%d %s\n", *ssid_len, *ssid_len > 0? ssid:"NULL");
-out:
 	return ret;
 }
+
 int rda5890_set_bssid(struct rda5890_private *priv, unsigned char *bssid)
 {
 	int ret;
