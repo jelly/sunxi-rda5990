@@ -728,7 +728,7 @@ int rda5890_get_fw_version_polling(struct rda5890_private *priv, unsigned int* v
     unsigned short wid_rsp_len = 32;
     unsigned short wid;
     char wid_msg_id = priv->wid_msg_id++;
-    unsigned char *ptr_payload;
+    char *ptr_payload;
 
 	RDA5890_DBGLAP(RDA5890_DA_WID, RDA5890_DL_DEBUG,
 	"%s <<< \n", __func__);
