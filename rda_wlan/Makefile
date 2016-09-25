@@ -1,4 +1,4 @@
-KERNEL_DIR ?= /mnt/msata/linux-hans/
+KERNEL_DIR ?= /mnt/msata/linux-mainline/
 
 obj-m := rda5890.o
 rda5890-objs := \
