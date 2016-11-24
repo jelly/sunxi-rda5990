@@ -486,6 +486,7 @@ static int if_sdio_probe(struct sdio_func *func,
     struct rda5890_private *priv = NULL;
     struct if_sdio_packet *packet = NULL; 
     int ret = -1;
+    unsigned long flags;
 
     RDA5890_DBGLAP(RDA5890_DA_SDIO, RDA5890_DL_DEBUG,
     	"%s >>>\n", __func__);

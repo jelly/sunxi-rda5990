@@ -1390,6 +1390,7 @@ static int assoc_helper_secinfo(struct rda5890_private *priv,
 		priv->imode = 0;
 	} else {
 		u16 key_len = 0;
+		u16 i;
 		if (   priv->secinfo.wep_enabled
 		    && !priv->secinfo.WPAenabled
 		    && !priv->secinfo.WPA2enabled) {
@@ -2231,7 +2232,11 @@ void rda5890_scan_worker(struct work_struct *work)
 	struct rda5890_private *priv = container_of(work, struct rda5890_private,
 		scan_work.work);
 	int ret = 0;
+	struct rda5890_bss_descriptor bss_desc[RDA5890_MAX_NETWORK_NUM];
+	int bss_index, bss_count;
+	struct bss_descriptor *iter_bss;
 	union iwreq_data wrqu;
+    unsigned char fist_send = 0;
 
 	RDA5890_DBGLAP(RDA5890_DA_WEXT, RDA5890_DL_TRACE, "%s >>>\n", __func__);
 
@@ -2261,7 +2266,7 @@ void rda5890_scan_worker(struct work_struct *work)
 
 #ifndef GET_SCAN_FROM_NETWORK_INFO
 retry:
-	int bss_count = rda5890_get_scan_results(priv, bss_desc);
+	bss_count = rda5890_get_scan_results(priv, bss_desc);
 
     fist_send = (bss_count >> 8) & 0xff;
     bss_count &= 0xff;
