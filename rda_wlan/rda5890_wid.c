@@ -79,6 +79,7 @@ int rda5890_wid_request_polling(struct rda5890_private *priv,
 		char *wid_rsp, unsigned short *wid_rsp_len)
 {
 	int ret = -1;
+	int timeleft = 0;
 	char data_buf[RDA5890_MAX_WID_LEN + 2];
 	unsigned short data_len;
 	unsigned char status;
